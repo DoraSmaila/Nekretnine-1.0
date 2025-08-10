@@ -139,7 +139,6 @@ const ProfilePage = () => {
         <div className="user-info">
           <p><strong>Ime:</strong> {user.name}</p>
           <p><strong>Email:</strong> {user.email}</p>
-          <button className="logout-btn" onClick={handleLogout}>Odjavi se</button>
         </div>
       )}
 
@@ -203,6 +202,8 @@ const ProfilePage = () => {
         )}
 
       </div>
+      
+      <button className="logout-btn" onClick={handleLogout}>Odjavi se</button>
 
       {editingProperty && (
         <div className="edit-modal">

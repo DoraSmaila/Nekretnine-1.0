@@ -15,16 +15,14 @@ const AppContent = () => {
   return (
     <>
       {showNavbar && <Navbar />}
-      <div className="main-content">
-        <Routes>
-          <Route path="/" element={<AuthPage />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/property/:id" element={<PropertyDetails />} />
-          <Route path="/favorites" element={<Favorites />} />
-          <Route path="/analytics" element={<Analytics />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<AuthPage />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/property/:id" element={<PropertyDetails />} />
+        <Route path="/favorites" element={<Favorites />} />
+        <Route path="/analytics" element={<Analytics />} />
+      </Routes>
       <Footer />
     </>
   );

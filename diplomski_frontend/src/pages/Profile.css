@@ -27,10 +27,8 @@
 
 
 .logout-btn {
-  position: fixed;
   bottom: 90px; /* podignuto dovoljno iznad footera */
   left: 50%;
-  transform: translateX(-50%);
   background-color: #ff4d4f;
   color: white;
   border: none;
@@ -82,6 +80,7 @@
 .delete-btn:hover {
   background-color: #c9302c;
 }
+
 .edit-modal {
   position: fixed;
   top: 50%;
@@ -94,6 +93,8 @@
   border-radius: 12px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   z-index: 999;
+  max-height: 80%;
+  overflow-y: auto;  /* Ovdje dodano */
 }
 
 .edit-modal h3 {
