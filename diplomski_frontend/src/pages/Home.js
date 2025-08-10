@@ -177,6 +177,7 @@ const Home = () => {
               />
               <div
                 className="favorite-icon"
+                style={{backgroundColor: 'white'}}
                 onClick={(e) => {
                   e.stopPropagation();
                   toggleFavorite(property.id);
