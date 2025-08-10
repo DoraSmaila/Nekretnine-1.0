@@ -177,17 +177,19 @@ const Home = () => {
               />
               <div
                 className="favorite-icon"
-                style={{backgroundColor: 'white'}}
+                style={{backgroundColor: 'white', borderRadius: '50%', border: '1px solid black', margin:'10px' }}
                 onClick={(e) => {
                   e.stopPropagation();
                   toggleFavorite(property.id);
                 }}
               >
-                {favorites.includes(property.id) ? (
-                  <FaHeart color="red" />
-                ) : (
-                  <FaRegHeart color="gray" />
-                )}
+                <div style={{ width: '32px', height: '32px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  {favorites.includes(property.id) ? (
+                    <FaHeart color="red" />
+                  ) : (
+                      <FaRegHeart color="gray" />
+                    )}
+                </div>
               </div>
               <h3>{property.title}</h3>
               <p>Lokacija: {property.location}</p>
