@@ -1,0 +1,35 @@
+.navbar {
+  background-color: #7bb3de;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: right; 
+  align-items: center;
+}
+
+.navbar ul {
+  list-style: none; /* makni točkice */
+  display: flex; /* prikaži linkove u redu */
+  gap: 20px; /* razmak između linkova */
+  padding: 0;
+  margin: 0;
+}
+
+.navbar li a {
+  text-decoration: none;
+  color: #e6ebf3;
+  font-weight: bold;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.navbar li a:hover {
+  color: #007bff; /* ili boja po želji */
+}
+.hero-background {
+  width: 100%;
+  height: 300px; /* ili koliko želiš */
+  background-image: url('../assets/images/neboderi.jpg'); /* ako koristiš CSS bez importa */
+  background-size: cover;
+  background-position: center;
+}
+

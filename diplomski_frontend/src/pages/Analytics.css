@@ -1,0 +1,73 @@
+.analytics-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 40px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fafafa;
+  border-radius: 40px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.analytics-section {
+  margin-bottom: 40px;
+}
+
+.chart-wrapper,
+.table-wrapper {
+  width: 100%;
+  max-width: 800px; /* maksimalna širina */
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 30px; /* razmak između elemenata */
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  margin: 60px auto 0; /* veći razmak odozdo i centriranje */
+  max-width: 800px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 15px;
+  margin-top: 60px;
+}
+
+table {
+  width: 60%; /* malo uža tablica */
+  margin: 0 auto; /* centriraj tablicu */
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+table th, table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+table th {
+  background-color: #86b2e1;
+  color: white;
+  font-weight: 600;
+}
+
+table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Responsive for charts */
+@media (max-width: 600px) {
+  .analytics-container {
+    padding: 10px;
+    margin: 20px auto;
+  }
+
+  .analytics-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .analytics-section h2 {
+    font-size: 1.3rem;
+  }
+}

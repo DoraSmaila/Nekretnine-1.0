@@ -1,0 +1,194 @@
+/* src/pages/Home.css */
+.home-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.search-input {
+  padding: 10px;
+  margin-bottom: 20px;
+  width: 80%;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.properties-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  justify-items: center;
+  margin-top: 20px;
+}
+
+.property-card {
+  position: relative;
+  background-color: #f8f8f8;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 320px;
+  text-align: left;
+}
+
+.property-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.property-card h3 {
+  margin: 10px 0 5px;
+}
+
+.property-card .price {
+  font-weight: bold;
+  color: #007bff;
+}
+.search-input {
+  width: 250px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin: 20px auto;
+  display: block;
+}
+.property-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Gumb "Napravi objavu" */
+.create-button {
+  background-color: #4caf50; /* zelena boja */
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  font-size: 16px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  margin-left: auto;
+}
+
+.create-button:hover {
+  background-color: #45a049;
+}
+
+/* Popup overlay - tamni sloj iza forme */
+.form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Popup forma */
+.form-popup {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 25px 30px;
+  width: 450px;
+  max-width: 90%;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+/* Header forme */
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.form-header h3 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 22px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: #555;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #e74c3c; /* crvena boja */
+}
+
+/* Forma i grid raspored */
+.property-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px 20px;
+}
+
+.property-form input,
+.property-form select,
+.property-form textarea {
+  padding: 10px 12px;
+  border: 1.5px solid #ccc;
+  border-radius: 5px;
+  font-size: 15px;
+  resize: vertical;
+}
+
+.property-form textarea {
+  grid-column: span 2;
+  height: 80px;
+}
+
+.property-form select {
+  cursor: pointer;
+}
+
+/* Gumb za spremanje */
+.submit-btn {
+  grid-column: span 2;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 12px 0;
+  font-size: 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 7px rgba(0,0,0,0.2);
+}
+
+.submit-btn:hover {
+  background-color: #45a049;
+}
+
+
+
+.favorite-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  z-index: 10;
+  color: #ccc;
+}
+
+.favorite-icon:hover {
+  color: red;
+}
