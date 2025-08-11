@@ -104,7 +104,7 @@ const Home = () => {
 
     try {
       const response = await axios.post('http://localhost:5000/api/properties', {
-        user_id: user ? user.id : null,
+        //user_id: user ? user.id : null,
         ...newProperty
       });
 
