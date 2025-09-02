@@ -36,10 +36,10 @@ app.listen(PORT, () => {
 }); */
 
 const db = mysql.createConnection({
-  host: "sql12.freesqldatabase.com",   // HOST
-  user: "sql1234567",                  // USER
-  password: "your_password",           // PASSWORD
-  database: "sql1234567",              // DATABASE NAME
+  host: "sql7.freesqldatabase.com",   // HOST
+  user: "sql7797095",                  // USER
+  password: "8qbTlTHyMC",           // PASSWORD
+  database: "sql7797095",              // DATABASE NAME
   port: 3306                           // PORT
 });
 
