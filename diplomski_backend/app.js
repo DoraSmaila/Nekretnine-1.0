@@ -4,7 +4,7 @@ const cors = require('cors');
 const propertyRoutes = require('./routes/propertyRoutes');
 const userRoutes = require('./routes/userRoutes');
 const path = require('path');
-import mysql from "mysql2";
+const mysql = require('mysql2');
 
 
 // Middleware za parsiranje JSON-a
@@ -50,3 +50,13 @@ db.connect(err => {
   }
   console.log("✅ Connected to MySQL database!");
 });
+// Test endpoint
+app.get('/', (req, res) => {
+  res.send('Backend radi!');
+});
+
+// Pokretanje servera
+const PORT = process.env.PORT || 10000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+module.exports = db; // tako da routes mogu koristiti db
