@@ -73,7 +73,7 @@ const Favorite = () => {
                 style={{ cursor: 'pointer' }}
               >
                 <img
-                  src={`http://localhost:5000${property.image || '/uploads/no-image.jpg'}`}
+                  src={`${backendUrl}${property.image || '/uploads/no-image.jpg'}`}
                   alt={property.title}
                   className="property-image"
                 />
