@@ -3,6 +3,7 @@ import axios from 'axios';
 import './Home.css';
 import { useNavigate } from 'react-router-dom';
 import { FaHeart, FaRegHeart, FaPlusCircle, FaTimes } from 'react-icons/fa';
+import { backendUrl } from '../config';
 
 const Home = () => {
   const [properties, setProperties] = useState([]);
@@ -29,12 +30,12 @@ const Home = () => {
     const fetchData = async () => {
       try {
         // Dohvati javne nekretnine
-        const res = await axios.get('http://localhost:5000/api/properties/public');
+        const res = await axios.get(`${backendUrl}/api/properties/public`);
         setProperties(res.data);
 
         // Dohvati favorite za prijavljenog korisnika iz baze
         if (user) {
-          const favRes = await axios.get(`http://localhost:5000/api/favorites/${user.id}`);
+          const favRes = await axios.get(`${backendUrl}/api/favorites/${user.id}`);
           const favoriteIds = favRes.data.map(fav => fav.property_id || fav.id);
           setFavorites(favoriteIds);
         }
@@ -55,13 +56,13 @@ const Home = () => {
     try {
       if (favorites.includes(propertyId)) {
         // Ukloni favorit
-        await axios.delete('http://localhost:5000/api/favorites', {
+        await axios.delete(`${backendUrl}/api/favorites`, {
           data: { userId: user.id, propertyId }
         });
         setFavorites(favorites.filter(id => id !== propertyId));
       } else {
         // Dodaj favorit
-        await axios.post('http://localhost:5000/api/favorites', {
+        await axios.post(`${backendUrl}/api/favorites`, {
           userId: user.id,
           propertyId
         });
@@ -83,7 +84,7 @@ const Home = () => {
 
   const handleClick = async (id) => {
     try {
-      await axios.post(`http://localhost:5000/api/properties/view/${id}`, {
+      await axios.post(`${backendUrl}/api/properties/view/${id}`, {
         viewerEmail: user ? user.email : 'anonimni@posjetitelj.com'
       });
       navigate(`/property/${id}`);
@@ -103,7 +104,7 @@ const Home = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/api/properties', {
+      const response = await axios.post(`${backendUrl}/api/properties`, {
         //user_id: user ? user.id : null,
         ...newProperty
       });
@@ -115,7 +116,7 @@ const Home = () => {
         formData.append('property_id', propertyId);
         images.forEach(img => formData.append('images', img));
 
-        await axios.post('http://localhost:5000/api/images/upload-multiple', formData, {
+        await axios.post(`${backendUrl}/api/images/upload-multiple`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
       }
@@ -134,7 +135,7 @@ const Home = () => {
       });
       setImages([]);
 
-      const res = await axios.get('http://localhost:5000/api/properties/public');
+      const res = await axios.get(`${backendUrl}/api/properties/public`);
       setProperties(res.data);
     } catch (err) {
       console.error('Greška pri unosu nekretnine:', err);
@@ -171,7 +172,7 @@ const Home = () => {
               style={{ cursor: 'pointer' }}
             >
               <img
-                src={`http://localhost:5000${property.image || '/uploads/no-image.jpg'}`}
+                src={`${backendUrl}${property.image || '/uploads/no-image.jpg'}`}
                 alt={property.title}
                 className="property-image"
               />

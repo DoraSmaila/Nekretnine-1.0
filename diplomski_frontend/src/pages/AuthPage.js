@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './AuthPage.css';
 import { useNavigate } from 'react-router-dom';
+import { backendUrl } from '../config';
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -15,7 +16,7 @@ const AuthPage = () => {
   const handleLogin = async e => {
   e.preventDefault();
   try {
-    const response = await axios.post('http://localhost:5000/api/login', {
+    const response = await axios.post(`${backendUrl}/api/login`, {
       email: formData.email,
       password: formData.password
     });
@@ -31,7 +32,7 @@ const AuthPage = () => {
   const handleRegister = async e => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/register', {
+      await axios.post(`${backendUrl}/api/register`, {
         name: formData.name,
         email: formData.email,
         password: formData.password
