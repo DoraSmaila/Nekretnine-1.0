@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Profile.css';
+import { backendUrl } from '../config';
 
 const ProfilePage = () => {
   const [myUploads, setMyUploads] = useState([]);
@@ -23,10 +24,10 @@ const ProfilePage = () => {
       setUser(storedUser);
 
       try {
-        const uploadsRes = await axios.get(`http://localhost:5000/api/properties/uploads/${storedUser.email}`);
+        const uploadsRes = await axios.get(`${backendUrl}/api/properties/uploads/${storedUser.email}`);
         setMyUploads(uploadsRes.data);
 
-        const rentedRes = await axios.get(`http://localhost:5000/api/properties/user/${storedUser.id}`);
+        const rentedRes = await axios.get(`${backendUrl}/api/properties/user/${storedUser.id}`);
         setRentedProperties(rentedRes.data);
       } catch (error) {
         console.error('Greška pri dohvaćanju podataka:', error);
@@ -45,7 +46,7 @@ const ProfilePage = () => {
 
   const unrentProperty = async (propertyId) => {
     try {
-      await axios.post(`http://localhost:5000/api/properties/unrent/${propertyId}`);
+      await axios.post(`${backendUrl}/api/properties/unrent/${propertyId}`);
       setRentedProperties(prev => prev.filter(p => p.id !== propertyId));
     } catch (error) {
       console.error('Greška pri odjavi nekretnine:', error);
@@ -57,7 +58,7 @@ const ProfilePage = () => {
     if (!window.confirm('Jesi sigurna da želiš obrisati ovu objavu?')) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/properties/${propertyId}`);
+      await axios.delete(`${backendUrl}/api/properties/${propertyId}`);
       setMyUploads(prev => prev.filter(p => p.id !== propertyId));
     } catch (error) {
       console.error('Greška pri brisanju objave:', error);
@@ -84,7 +85,7 @@ const ProfilePage = () => {
 
   const handleDeleteImage = async (imageUrl) => {
     try {
-      await axios.delete('http://localhost:5000/api/images', {
+      await axios.delete(`${backendUrl}/api/images`, {
         data: { image_url: imageUrl }
       });
       setEditingProperty((prev) => ({
@@ -99,7 +100,7 @@ const ProfilePage = () => {
 
   const saveEdit = async () => {
     try {
-      await axios.put(`http://localhost:5000/api/properties/${editingProperty.id}`, {
+      await axios.put(`${backendUrl}/api/properties/${editingProperty.id}`, {
         title: editingProperty.title,
         description: editingProperty.description,
         price: editingProperty.price,
@@ -115,12 +116,12 @@ const ProfilePage = () => {
           formData.append('images', img);
         });
 
-        await axios.post('http://localhost:5000/api/images/upload-multiple', formData, {
+        await axios.post(`${backendUrl}/api/images/upload-multiple`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
       }
 
-      const refreshed = await axios.get(`http://localhost:5000/api/properties/uploads/${user.email}`);
+      const refreshed = await axios.get(`${backendUrl}/api/properties/uploads/${user.email}`);
       setMyUploads(refreshed.data);
       setEditingProperty(null);
       setNewImages([]);

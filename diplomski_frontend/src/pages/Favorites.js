@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Favorites.css';
 import { useNavigate } from 'react-router-dom';
+import { backendUrl } from '../config';
 
 const Favorite = () => {
   const [favorites, setFavorites] = useState([]);
@@ -14,11 +15,11 @@ const Favorite = () => {
       if (!user) return;
 
       try {
-        const res = await axios.get(`http://localhost:5000/api/favorites/${user.id}`);
+        const res = await axios.get(`${backendUrl}/api/favorites/${user.id}`);
         setFavorites(res.data);
 
         // nakon dohvata favorita, dohvatimo preporuke
-        const recRes = await axios.get(`http://localhost:5000/api/properties/recommend/${user.id}`);
+        const recRes = await axios.get(`${backendUrl}/api/properties/recommend/${user.id}`);
         setRecommendations(recRes.data);
       } catch (err) {
         console.error('Greška pri dohvaćanju favorita ili preporuka:', err);

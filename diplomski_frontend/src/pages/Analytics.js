@@ -4,6 +4,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
 import './Analytics.css';
+import { backendUrl } from '../config';
 
 const Analytics = () => {
   const [properties, setProperties] = useState([]);
@@ -17,8 +18,8 @@ const Analytics = () => {
     const fetchViewStats = async () => {
       try {
         const [propertiesRes, viewersRes] = await Promise.all([
-          axios.get(`http://localhost:5000/api/properties/analytics/views/${user.email}`),
-          axios.get(`http://localhost:5000/api/properties/analytics/viewers/${user.email}`)
+          axios.get(`${backendUrl}/api/properties/analytics/views/${user.email}`),
+          axios.get(`${backendUrl}/api/properties/analytics/viewers/${user.email}`)
         ]);
         setProperties(propertiesRes.data);
         setViewers(viewersRes.data);

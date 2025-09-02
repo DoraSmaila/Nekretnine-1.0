@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './PropertyDetails.css';
+import { backendUrl } from '../config';
 
 const PropertyDetails = () => {
   const { id } = useParams();
@@ -17,7 +18,7 @@ const PropertyDetails = () => {
   useEffect(() => {
     const fetchProperty = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/properties/${id}`);
+        const res = await axios.get(`${backendUrl}/api/properties/${id}`);
         setProperty(res.data);
       } catch (err) {
         console.error('Greška prilikom dohvaćanja nekretnine:', err);
@@ -29,7 +30,7 @@ const PropertyDetails = () => {
 
   const handleRent = async () => {
     try {
-      await axios.post(`http://localhost:5000/api/properties/rent/${id}`, {
+      await axios.post(`${backendUrl}/api/properties/rent/${id}`, {
         userId: currentUserId,
       });
       alert('Uspješno ste unajmili nekretninu!');
@@ -42,7 +43,7 @@ const PropertyDetails = () => {
 
   if (!property) return <p>Učitavanje...</p>;
 
-  const imageUrls = property.images?.map(img => `http://localhost:5000${img}`) || [];
+  const imageUrls = property.images?.map(img => `${backendUrl}${img}`) || [];
 
   return (
     <div className="property-details-container">
