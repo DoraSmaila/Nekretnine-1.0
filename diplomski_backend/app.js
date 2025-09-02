@@ -4,6 +4,7 @@ const cors = require('cors');
 const propertyRoutes = require('./routes/propertyRoutes');
 const userRoutes = require('./routes/userRoutes');
 const path = require('path');
+import mysql from "mysql2";
 
 
 // Middleware za parsiranje JSON-a
@@ -29,7 +30,23 @@ app.use('/api/favorites', favoriteRoutes);
 
 
 // Pokretanje servera
-const PORT = process.env.PORT || 5000;
+/* const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+}); */
+
+const db = mysql.createConnection({
+  host: "sql12.freesqldatabase.com",   // HOST
+  user: "sql1234567",                  // USER
+  password: "your_password",           // PASSWORD
+  database: "sql1234567",              // DATABASE NAME
+  port: 3306                           // PORT
+});
+
+db.connect(err => {
+  if (err) {
+    console.error("❌ Database connection failed:", err);
+    return;
+  }
+  console.log("✅ Connected to MySQL database!");
 });
