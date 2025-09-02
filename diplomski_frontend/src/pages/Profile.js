@@ -153,7 +153,7 @@ const ProfilePage = () => {
                 onClick={() => navigate(`/property/${property.id}`)}
               >
                 <img
-                  src={`http://localhost:5000${property.images?.[0] || '/uploads/no-image.jpg'}`}
+                  src={`${backendUrl}${property.images?.[0] || '/uploads/no-image.jpg'}`}
                   alt={property.title}
                   className="property-image"
                 />
@@ -184,7 +184,7 @@ const ProfilePage = () => {
                 onClick={() => navigate(`/property/${property.id}`)}
               >
                 <img
-                  src={`http://localhost:5000${property.images?.[0] || '/uploads/no-image.jpg'}`}
+                  src={`${backendUrl}${property.images?.[0] || '/uploads/no-image.jpg'}`}
                   alt={property.title}
                   className="property-image"
                 />
@@ -225,7 +225,7 @@ const ProfilePage = () => {
           <div className="edit-images">
             {editingProperty.images?.map((img, idx) => (
               <div key={idx} className="edit-image-item">
-                <img src={`http://localhost:5000${img}`} alt="slika" width="100" />
+                <img src={`${backendUrl}${img}`} alt="slika" width="100" />
                 <button onClick={() => handleDeleteImage(img)}>Obriši</button>
               </div>
             ))}
