@@ -27,7 +27,7 @@ const Favorite = () => {
     };
 
     fetchFavorites();
-  }, [user]);
+  }, []); //ovdje isto bio user ko u Analytics
 
   const handleClick = (id) => {
     navigate(`/property/${id}`);
