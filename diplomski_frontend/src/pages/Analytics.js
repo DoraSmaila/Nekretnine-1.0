@@ -22,14 +22,27 @@ const Analytics = () => {
           axios.get(`${backendUrl}/api/properties/analytics/viewers/${user.email}`)
         ]);
 
-        // Filtriraj da ne prikazuje vlastite preglede
+        // Filtriramo gledatelje koji nisu vlasnik
         const filteredViewers = viewersRes.data.filter(v => v.viewer_email !== user.email);
 
-        setProperties(propertiesRes.data);
+        // Kreiramo mapu propertyId -> broj pregleda bez vlasnikovog vlastitog klika
+        const viewsMap = {};
+        filteredViewers.forEach(v => {
+          if (!viewsMap[v.property_id]) viewsMap[v.property_id] = 0;
+          viewsMap[v.property_id]++;
+        });
+
+        // Dodajemo 'views' u properties
+        const filteredProperties = propertiesRes.data.map(p => ({
+          ...p,
+          views: viewsMap[p.id] || 0
+        }));
+
+        setProperties(filteredProperties);
         setViewers(filteredViewers);
         setLoading(false);
 
-        console.log('Pregledi:', propertiesRes.data);
+        console.log('Pregledi (bez vlasnika):', filteredProperties);
         console.log('Gledatelji (bez vlasnika):', filteredViewers);
       } catch (err) {
         console.error('Greška pri dohvaćanju statistike:', err);
@@ -38,7 +51,7 @@ const Analytics = () => {
     };
 
     fetchViewStats();
-  }, []); // ovdje je bio user 
+  }, []);
 
   if (!user) {
     return <p>Morate biti prijavljeni za pristup ovoj stranici.</p>;
