@@ -1,6 +1,6 @@
 /* src/pages/Home.css */
 .home-container {
-  padding: 20px;
+  padding: 20px 40px; /* horizontalni padding da kartice ne idu do ruba ekrana */
   text-align: center;
 }
 
@@ -17,20 +17,20 @@
 .properties-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px; /* veći razmak između kartica */
+  gap: 30px; /* veći razmak između kartica */
   justify-items: center;
   margin-top: 20px;
-  padding-bottom: 30px; /* dodatni prostor prema footeru */
+  padding-bottom: 30px;
 }
 
 .property-card {
   position: relative;
-  background-color: #ffffff; /* svijetla kartica */
+  background-color: #ffffff;
   padding: 15px;
-  border-radius: 15px; /* zaobljeni rubovi */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* jača sjena */
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   width: 100%;
-  max-width: 320px;
+  max-width: 300px; /* manja maksimalna širina da se kartice ne “nabiju” */
   text-align: left;
   transition: transform 0.3s, box-shadow 0.3s;
 }
