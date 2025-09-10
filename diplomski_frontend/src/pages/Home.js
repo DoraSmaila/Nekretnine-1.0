@@ -218,7 +218,7 @@ const Home = () => {
               <input name="size" type="number" value={newProperty.size} onChange={handleFormChange} placeholder="Veličina (m²)" required />
               <select name="type" value={newProperty.type} onChange={handleFormChange}>
                 <option value="Stan">Stan</option>
-                <option value="Kuća">Kuća</option>
+                <option value="Kuca">Kuca</option>
                 <option value="Apartman">Apartman</option>
                 <option value="Poslovni prostor">Poslovni prostor</option>
               </select>
