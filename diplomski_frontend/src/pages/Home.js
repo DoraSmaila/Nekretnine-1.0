@@ -20,27 +20,25 @@ const Home = () => {
     type: 'Stan',
     contact_name: '',
     contact_phone: '',
-    contact_email: '' //popunjavanje emaila u formi
+    contact_email: '' // automatski postavljamo kasnije
   });
 
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user')); //  prijavljeni korisnik
+  const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Dohvati javne nekretnine
         const res = await axios.get(`${backendUrl}/api/properties/public`);
         setProperties(res.data);
 
-        // Dohvati favorite za prijavljenog korisnika iz baze
         if (user) {
           const favRes = await axios.get(`${backendUrl}/api/favorites/${user.id}`);
           const favoriteIds = favRes.data.map(fav => fav.property_id || fav.id);
           setFavorites(favoriteIds);
         }
       } catch (err) {
-        console.error('Greška prilikom dohvaćanja podataka:', err);
+        console.error('Greška pri dohvaćanju podataka:', err);
       }
     };
 
@@ -52,16 +50,13 @@ const Home = () => {
       alert('Molimo prijavite se da biste spremili favorite.');
       return;
     }
-
     try {
       if (favorites.includes(propertyId)) {
-        // Ukloni favorit
         await axios.delete(`${backendUrl}/api/favorites`, {
           data: { userId: user.id, propertyId }
         });
         setFavorites(favorites.filter(id => id !== propertyId));
       } else {
-        // Dodaj favorit
         await axios.post(`${backendUrl}/api/favorites`, {
           userId: user.id,
           propertyId
@@ -90,14 +85,20 @@ const Home = () => {
       navigate(`/property/${id}`);
     } catch (error) {
       console.error('Greška pri bilježenju pregleda:', error);
-      navigate(`/property/${id}`);  // čak i ako padne, možeš nastaviti s navigacijom
+      navigate(`/property/${id}`);
     }
   };
 
-
-
   const handleFormChange = (e) => {
     setNewProperty({ ...newProperty, [e.target.name]: e.target.value });
+  };
+
+  const handleShowForm = () => {
+    setNewProperty(prev => ({
+      ...prev,
+      contact_email: user?.email || ''
+    }));
+    setShowForm(true);
   };
 
   const handleFormSubmit = async (e) => {
@@ -105,7 +106,6 @@ const Home = () => {
 
     try {
       const response = await axios.post(`${backendUrl}/api/properties`, {
-        //user_id: user ? user.id : null,
         ...newProperty
       });
 
@@ -146,7 +146,7 @@ const Home = () => {
     <div className="home-container">
       <div className="top-bar">
         <h2>Nekretnine</h2>
-        <button className="create-button" onClick={() => setShowForm(true)}>
+        <button className="create-button" onClick={handleShowForm}>
           <FaPlusCircle style={{ marginRight: '8px' }} />
           Napravi objavu
         </button>
@@ -178,7 +178,7 @@ const Home = () => {
               />
               <div
                 className="favorite-icon"
-                style={{backgroundColor: 'white', borderRadius: '50%', border: '1px solid black', margin:'10px' }}
+                style={{ backgroundColor: 'white', borderRadius: '50%', border: '1px solid black', margin:'10px' }}
                 onClick={(e) => {
                   e.stopPropagation();
                   toggleFavorite(property.id);
@@ -224,7 +224,7 @@ const Home = () => {
               </select>
               <input name="contact_name" value={newProperty.contact_name} onChange={handleFormChange} placeholder="Ime kontakt osobe" required />
               <input name="contact_phone" value={newProperty.contact_phone} onChange={handleFormChange} placeholder="Telefon" required pattern="\d{10}" maxLength={10} />
-              <input name="contact_email" type="email" value={JSON.parse(localStorage.getItem('user'))?.email || ''} onChange={handleFormChange} placeholder="Email" disabled />
+              <input name="contact_email" type="email" value={newProperty.contact_email} onChange={handleFormChange} placeholder="Email" disabled />
               <input type="file" accept="image/*" multiple onChange={handleImageChange} />
               <button type="submit" className="submit-btn">Spremi</button>
               <button type="button" className="cancel-btn" onClick={() => setShowForm(false)}>Odustani</button>
