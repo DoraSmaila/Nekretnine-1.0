@@ -14,20 +14,20 @@ const AuthPage = () => {
   };
 
   const handleLogin = async e => {
-  e.preventDefault();
-  try {
-    const response = await axios.post(`${backendUrl}/api/login`, {
-      email: formData.email,
-      password: formData.password
-    });
+    e.preventDefault();
+    try {
+      const response = await axios.post(`${backendUrl}/api/login`, {
+        email: formData.email,
+        password: formData.password
+      });
 
-    localStorage.setItem('user', JSON.stringify(response.data)); // MORA BITI DODANO
-    navigate('/home');
-  } catch (err) {
-    alert('Neuspješna prijava');
-    console.error('Greška prilikom login-a:', err);
-  }
-};
+      localStorage.setItem('user', JSON.stringify(response.data)); // MORA BITI DODANO
+      navigate('/home');
+    } catch (err) {
+      alert('Neuspješna prijava');
+      console.error('Greška prilikom login-a:', err);
+    }
+  };
 
   const handleRegister = async e => {
     e.preventDefault();
@@ -48,8 +48,18 @@ const AuthPage = () => {
   return (
     <div className="auth-container">
       <div className="auth-toggle">
-        <button onClick={() => setIsLogin(true)}>Prijava</button>
-        <button onClick={() => setIsLogin(false)}>Registracija</button>
+        <button
+          onClick={() => setIsLogin(true)}
+          className={isLogin ? 'active-tab' : ''}
+        >
+          Prijava
+        </button>
+        <button
+          onClick={() => setIsLogin(false)}
+          className={!isLogin ? 'active-tab' : ''}
+        >
+          Registracija
+        </button>
       </div>
 
       <form onSubmit={isLogin ? handleLogin : handleRegister}>

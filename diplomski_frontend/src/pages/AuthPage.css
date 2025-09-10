@@ -53,3 +53,25 @@ input {
 .submit-btn:hover {
   background-color: #45a049;
 }
+
+.auth-toggle {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.auth-toggle button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #ccc;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.auth-toggle button.active-tab {
+  background-color: #86b2e1;
+  color: white;
+  font-weight: 700;
+}
+
