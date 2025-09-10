@@ -13,40 +13,57 @@
   border: 1px solid #ccc;
 }
 
+/* Poboljšani raspored kartica nekretnina */
 .properties-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  gap: 25px; /* veći razmak između kartica */
   justify-items: center;
   margin-top: 20px;
+  padding-bottom: 30px; /* dodatni prostor prema footeru */
 }
 
 .property-card {
   position: relative;
-  background-color: #f8f8f8;
+  background-color: #ffffff; /* svijetla kartica */
   padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  border-radius: 15px; /* zaobljeni rubovi */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* jača sjena */
   width: 100%;
   max-width: 320px;
   text-align: left;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.property-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 .property-image {
   width: 100%;
   height: 200px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
 
 .property-card h3 {
   margin: 10px 0 5px;
+  font-size: 1.2rem;
+}
+
+.property-card p {
+  margin: 4px 0;
+  font-size: 0.95rem;
 }
 
 .property-card .price {
   font-weight: bold;
   color: #007bff;
+  margin-top: 8px;
 }
+
 .search-input {
   width: 250px;
   padding: 8px 12px;
