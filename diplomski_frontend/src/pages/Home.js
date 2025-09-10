@@ -20,7 +20,7 @@ const Home = () => {
     type: 'Stan',
     contact_name: '',
     contact_phone: '',
-    contact_email: loggedUser?.email || '' //popunjavanje emaila u formi
+    contact_email: '' //popunjavanje emaila u formi
   });
 
   const navigate = useNavigate();
