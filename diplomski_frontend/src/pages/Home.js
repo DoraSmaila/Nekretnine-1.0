@@ -227,6 +227,7 @@ const Home = () => {
               <input name="contact_email" type="email" value={JSON.parse(localStorage.getItem('user'))?.email || ''} onChange={handleFormChange} placeholder="Email" disabled />
               <input type="file" accept="image/*" multiple onChange={handleImageChange} />
               <button type="submit" className="submit-btn">Spremi</button>
+              <button type="button" className="cancel-btn" onClick={() => setShowForm(false)}>Odustani</button>
             </form>
           </div>
         </div>
