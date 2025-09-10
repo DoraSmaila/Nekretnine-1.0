@@ -20,7 +20,7 @@ const Home = () => {
     type: 'Stan',
     contact_name: '',
     contact_phone: '',
-    contact_email: ''
+    contact_email: loggedUser?.email || '' //popunjavanje emaila u formi
   });
 
   const navigate = useNavigate();
@@ -224,7 +224,7 @@ const Home = () => {
               </select>
               <input name="contact_name" value={newProperty.contact_name} onChange={handleFormChange} placeholder="Ime kontakt osobe" required />
               <input name="contact_phone" value={newProperty.contact_phone} onChange={handleFormChange} placeholder="Telefon" required />
-              <input name="contact_email" type="email" value={newProperty.contact_email} onChange={handleFormChange} placeholder="Email" required />
+              <input name="contact_email" type="email" value={newProperty.contact_email} onChange={handleFormChange} placeholder="Email" disabled />
               <input type="file" accept="image/*" multiple onChange={handleImageChange} />
               <button type="submit" className="submit-btn">Spremi</button>
             </form>
