@@ -17,21 +17,21 @@ const Analytics = () => {
 
     const fetchAnalytics = async () => {
       try {
+        // Dohvati sve nekretnine korisnika
+        const propertiesRes = await axios.get(`${backendUrl}/api/properties/owner/${user.id}`);
+        const allProperties = propertiesRes.data; // niz objekata {id, title, ...}
+
+        // Dohvati sve preglede za te nekretnine
         const viewersRes = await axios.get(`${backendUrl}/api/properties/analytics/viewers/${user.email}`);
+        const filteredViewers = viewersRes.data.filter(v => v.viewer_email !== user.email); // izbaci vlasnika
 
-        // Filtriraj preglede da vlasnikovi klikovi ne ulaze
-        const filteredViewers = viewersRes.data.filter(v => v.viewer_email !== user.email);
-
-        // Grupiraj po nekretnini i izračunaj broj pregleda
-        const viewsByProperty = {};
-        filteredViewers.forEach(v => {
-          if (!viewsByProperty[v.property_id]) {
-            viewsByProperty[v.property_id] = { title: v.title, views: 0 };
-          }
-          viewsByProperty[v.property_id].views += 1;
+        // Kreiraj niz za graf
+        const data = allProperties.map(prop => {
+          const views = filteredViewers.filter(v => v.property_id === prop.id).length;
+          return { title: prop.title, views };
         });
 
-        setChartData(Object.values(viewsByProperty));
+        setChartData(data);
         setViewers(filteredViewers);
         setLoading(false);
       } catch (err) {
