@@ -216,7 +216,7 @@ const ProfilePage = () => {
           <input name="size" type="number" value={editingProperty.size} onChange={handleEditChange} placeholder="Veličina (m²)" />
           <select name="type" value={editingProperty.type} onChange={handleEditChange}>
             <option value="Stan">Stan</option>
-            <option value="Kuća">Kuća</option>
+            <option value="Kuca">Kuca</option>
             <option value="Apartman">Apartman</option>
             <option value="Poslovni prostor">Poslovni prostor</option>
           </select>
