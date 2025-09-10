@@ -7,7 +7,7 @@ import './Analytics.css';
 import { backendUrl } from '../config';
 
 const Analytics = () => {
-  const [properties, setProperties] = useState([]);
+  const [chartData, setChartData] = useState([]);
   const [viewers, setViewers] = useState([]);
   const [loading, setLoading] = useState(true);
   const user = JSON.parse(localStorage.getItem('user'));
@@ -15,33 +15,32 @@ const Analytics = () => {
   useEffect(() => {
     if (!user) return;
 
-    const fetchViewStats = async () => {
+    const fetchAnalytics = async () => {
       try {
-        const [propertiesRes, viewersRes] = await Promise.all([
-          axios.get(`${backendUrl}/api/properties/analytics/views/${user.email}`),
-          axios.get(`${backendUrl}/api/properties/analytics/viewers/${user.email}`)
-        ]);
+        const viewersRes = await axios.get(`${backendUrl}/api/properties/analytics/viewers/${user.email}`);
 
         // Filtriraj preglede da vlasnikovi klikovi ne ulaze
         const filteredViewers = viewersRes.data.filter(v => v.viewer_email !== user.email);
 
-        // Dodaj broj pregleda po nekretnini (samo od drugih)
-        const updatedProperties = propertiesRes.data.map(prop => {
-          const viewsByOthers = filteredViewers.filter(v => v.property_id === prop.id).length;
-          return { ...prop, views: viewsByOthers };
+        // Grupiraj po nekretnini i izračunaj broj pregleda
+        const viewsByProperty = {};
+        filteredViewers.forEach(v => {
+          if (!viewsByProperty[v.property_id]) {
+            viewsByProperty[v.property_id] = { title: v.title, views: 0 };
+          }
+          viewsByProperty[v.property_id].views += 1;
         });
 
-        setProperties(updatedProperties);
+        setChartData(Object.values(viewsByProperty));
         setViewers(filteredViewers);
         setLoading(false);
-
       } catch (err) {
         console.error('Greška pri dohvaćanju statistike:', err);
         setLoading(false);
       }
     };
 
-    fetchViewStats();
+    fetchAnalytics();
   }, [user]);
 
   if (!user) {
@@ -52,7 +51,7 @@ const Analytics = () => {
     return <p>Učitavanje podataka...</p>;
   }
 
-  if (properties.length === 0) {
+  if (chartData.length === 0) {
     return <p>Nemate objava ili nema podataka o pregledima.</p>;
   }
 
@@ -61,7 +60,7 @@ const Analytics = () => {
       <h2>Analitika pregleda vaših nekretnina</h2>
       <ResponsiveContainer width="100%" height={400}>
         <BarChart
-          data={properties}
+          data={chartData}
           margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
