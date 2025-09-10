@@ -22,21 +22,19 @@ const Analytics = () => {
           axios.get(`${backendUrl}/api/properties/analytics/viewers/${user.email}`)
         ]);
 
-        // Filtriraj da se iz grafova i tabele ne prikazuju vlastiti pregledi
+        // Filtriraj preglede da vlasnikovi klikovi ne ulaze
         const filteredViewers = viewersRes.data.filter(v => v.viewer_email !== user.email);
 
-        // Ažuriraj broj pregleda po nekretnini samo s drugim korisnicima
-        const filteredProperties = propertiesRes.data.map(prop => {
+        // Dodaj broj pregleda po nekretnini (samo od drugih)
+        const updatedProperties = propertiesRes.data.map(prop => {
           const viewsByOthers = filteredViewers.filter(v => v.property_id === prop.id).length;
           return { ...prop, views: viewsByOthers };
         });
 
-        setProperties(filteredProperties);
+        setProperties(updatedProperties);
         setViewers(filteredViewers);
         setLoading(false);
 
-        console.log('Pregledi (bez vlasnika):', filteredProperties);
-        console.log('Gledatelji (bez vlasnika):', filteredViewers);
       } catch (err) {
         console.error('Greška pri dohvaćanju statistike:', err);
         setLoading(false);
@@ -61,7 +59,6 @@ const Analytics = () => {
   return (
     <div className="analytics-container">
       <h2>Analitika pregleda vaših nekretnina</h2>
-
       <ResponsiveContainer width="100%" height={400}>
         <BarChart
           data={properties}
