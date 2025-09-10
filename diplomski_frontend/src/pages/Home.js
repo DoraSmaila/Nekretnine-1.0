@@ -223,7 +223,7 @@ const Home = () => {
                 <option value="Poslovni prostor">Poslovni prostor</option>
               </select>
               <input name="contact_name" value={newProperty.contact_name} onChange={handleFormChange} placeholder="Ime kontakt osobe" required />
-              <input name="contact_phone" value={newProperty.contact_phone} onChange={handleFormChange} placeholder="Telefon" required pattern="\d{3}\s?\d{3}\s?\d{3}" maxLength={12} />
+              <input name="contact_phone" value={newProperty.contact_phone} onChange={handleFormChange} placeholder="Telefon" required pattern="\d{3}\s?\d{3}\s?\d{3}" maxLength={10} />
               <input name="contact_email" type="email" value={JSON.parse(localStorage.getItem('user'))?.email || ''} onChange={handleFormChange} placeholder="Email" disabled />
               <input type="file" accept="image/*" multiple onChange={handleImageChange} />
               <button type="submit" className="submit-btn">Spremi</button>
