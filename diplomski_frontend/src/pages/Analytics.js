@@ -22,15 +22,22 @@ const Analytics = () => {
           axios.get(`${backendUrl}/api/properties/analytics/viewers/${user.email}`)
         ]);
 
+        console.log("🔹 propertiesRes.data:", propertiesRes.data);
+        console.log("🔹 viewersRes.data:", viewersRes.data);
+
         // Filtriramo gledatelje koji nisu vlasnik
         const filteredViewers = viewersRes.data.filter(v => v.viewer_email !== user.email);
 
-        // Kreiramo mapu propertyId -> broj pregleda bez vlasnikovog vlastitog klika
+        console.log("🔹 filteredViewers (bez vlasnika):", filteredViewers);
+
+        // Kreiramo mapu propertyId -> broj pregleda bez vlasnika
         const viewsMap = {};
         filteredViewers.forEach(v => {
           if (!viewsMap[v.property_id]) viewsMap[v.property_id] = 0;
           viewsMap[v.property_id]++;
         });
+
+        console.log("🔹 viewsMap:", viewsMap);
 
         // Dodajemo 'views' u properties
         const filteredProperties = propertiesRes.data.map(p => ({
@@ -38,17 +45,17 @@ const Analytics = () => {
           views: viewsMap[p.id] || 0
         }));
 
+        console.log("🔹 filteredProperties (s views):", filteredProperties);
+
         setProperties(filteredProperties);
         setViewers(filteredViewers);
         setLoading(false);
-
-        console.log('Pregledi (bez vlasnika):', filteredProperties);
-        console.log('Gledatelji (bez vlasnika):', filteredViewers);
       } catch (err) {
         console.error('Greška pri dohvaćanju statistike:', err);
         setLoading(false);
       }
     };
+
 
     fetchViewStats();
   }, []);
