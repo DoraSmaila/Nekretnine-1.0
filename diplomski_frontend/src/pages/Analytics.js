@@ -40,7 +40,7 @@ const Analytics = () => {
     };
 
     fetchAnalytics();
-  }, [user]);
+  }, []);
 
   if (!user) {
     return <p>Morate biti prijavljeni za pristup ovoj stranici.</p>;
