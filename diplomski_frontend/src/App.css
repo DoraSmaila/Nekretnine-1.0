@@ -36,40 +36,4 @@
     transform: rotate(360deg);
   }
 }
-/*Za footer*/
-html, body, #root {
-  height: 100%;
-  margin: 0;
-}
 
-.app-container {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  margin: 60px; /* globalna margina */
-}
-
-.app-content {
-  flex: 1;
-}
-
-/* default footer */
-.app-footer {
-  height: 60px;
-  background-color: #86b2e1;
-  color: white;
-  text-align: center;
-  line-height: 60px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 1.3rem;
-  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
-}
-
-/* samo za AuthPage (/) fiksiraj footer */
-.auth-page .app-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  margin: 0; /* poništi globalnu marginu */
-}
