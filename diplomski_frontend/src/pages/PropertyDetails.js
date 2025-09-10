@@ -19,6 +19,10 @@ const PropertyDetails = () => {
     const fetchProperty = async () => {
       try {
         const res = await axios.get(`${backendUrl}/api/properties/${id}`);
+        // Normaliziramo tip nekretnine da se kvačice pravilno prikazuju
+        if (res.data.type) {
+          res.data.type = res.data.type.normalize('NFC');
+        }
         setProperty(res.data);
       } catch (err) {
         console.error('Greška prilikom dohvaćanja nekretnine:', err);
