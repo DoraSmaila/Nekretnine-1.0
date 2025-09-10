@@ -27,24 +27,21 @@ const Analytics = () => {
 
         // Filtriramo gledatelje koji nisu vlasnik
         const filteredViewers = viewersRes.data.filter(v => v.viewer_email !== user.email);
-
         console.log("🔹 filteredViewers (bez vlasnika):", filteredViewers);
 
-        // Kreiramo mapu propertyId -> broj pregleda bez vlasnika
+        // Kreiramo mapu title -> broj pregleda (bez vlasnika)
         const viewsMap = {};
         filteredViewers.forEach(v => {
-          if (!viewsMap[v.property_id]) viewsMap[v.property_id] = 0;
-          viewsMap[v.property_id]++;
+          if (!viewsMap[v.title]) viewsMap[v.title] = 0;
+          viewsMap[v.title]++;
         });
-
         console.log("🔹 viewsMap:", viewsMap);
 
-        // Dodajemo 'views' u properties
+        // Dodajemo 'views' u properties preko title
         const filteredProperties = propertiesRes.data.map(p => ({
           ...p,
-          views: viewsMap[p.id] || 0
+          views: viewsMap[p.title] || 0
         }));
-
         console.log("🔹 filteredProperties (s views):", filteredProperties);
 
         setProperties(filteredProperties);
@@ -55,7 +52,6 @@ const Analytics = () => {
         setLoading(false);
       }
     };
-
 
     fetchViewStats();
   }, []);
